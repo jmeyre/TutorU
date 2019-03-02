@@ -130,7 +130,7 @@ def class_search():
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
-    form = CreateAccountForm()
+    form = RegisterForm()
     if form.validate_on_submit():
         id_chars = "0123456789"
         p_chars = "abcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyz01234567890-_?!#$^"
