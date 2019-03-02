@@ -7,13 +7,13 @@ from datetime import datetime
 
 class RegisterForm(FlaskForm):
     # user_id = IntegerField('User ID', validators=[DataRequired()])
-    category = RadioField('Account Category', choices=[('Tutor', 'Tutor'), ('Student', 'Student')],
+    category = RadioField('Account Category*', choices=[('Tutor', 'Tutor'), ('Student', 'Student')],
                           validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    fname = StringField('First Name', validators=[DataRequired()])
-    lname = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email*', validators=[DataRequired(), Email()])
+    password = PasswordField('Password*', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password*', validators=[DataRequired(), EqualTo('password')])
+    fname = StringField('First Name*', validators=[DataRequired()])
+    lname = StringField('Last Name*', validators=[DataRequired()])
     submit = SubmitField('Register')
 
 
