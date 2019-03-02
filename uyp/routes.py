@@ -17,12 +17,12 @@ def home():
     student = None
     staff = None
     classes = None
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
 
         conn = connector.connect(**config)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM students WHERE id = '{0}'".format(current_user.id))
+        cursor.execute("SELECT * FROM students WHERE id = '{0}'".format(current_user.email))
 
         stu = cursor.fetchone()
 
@@ -46,12 +46,12 @@ def home():
         cursor.close()
         conn.close()
 
-    elif current_user.category == 'Staff':
+    elif current_user.role == 'Tutor':
 
         conn = connector.connect(**config)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM staff WHERE id = '{0}'".format(current_user.id))
+        cursor.execute("SELECT * FROM users WHERE email = '{0}'".format(current_user.email))
 
         sta = cursor.fetchone()
 
@@ -70,13 +70,13 @@ def home():
         cursor.close()
         conn.close()
 
-    return render_template('home.html', student=student, staff=staff, classes=classes)
+    return render_template('home.html', user=student, staff=staff, classes=classes)
 
 
 @app.route('/class_search')
 @login_required
 def class_search():
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
 
         conn = connector.connect(**config)
         cursor = conn.cursor()
@@ -203,10 +203,10 @@ def profile(user_id):
     staff = None
     school = None
     # Prevent students from accessing other students' profiles
-    if current_user.category == 'Student' and str(current_user.id) != str(user_id):
+    if current_user.role == 'Student' and str(current_user.id) != str(user_id):
         return redirect(url_for('profile', user_id=current_user.id))
 
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         # Create the connection to the database
         conn = connector.connect(**config)
 
@@ -236,11 +236,11 @@ def profile(user_id):
     conn = connector.connect(**config)
     cursor = conn.cursor()
     cursor.execute("SELECT category FROM users WHERE id = '{0}'".format(user_id))
-    cat = cursor.fetchone()
-    category = cat[0]
+    rol = cursor.fetchone()
+    role = rol[0]
 
     # Create student object
-    if category == 'Student':
+    if role == 'Student':
         cursor.execute("SELECT * FROM students WHERE id = '{0}'".format(user_id))
         stu = cursor.fetchone()
 
@@ -282,7 +282,7 @@ def profile(user_id):
         if sch:
             school = School(sch[0], sch[1], sch[2], sch[3], sch[4])
 
-    elif category == 'Staff':
+    elif role == 'Staff':
         cursor.execute("SELECT * FROM staff WHERE id = '{0}'".format(user_id))
         sta = cursor.fetchone()
 
@@ -423,7 +423,7 @@ def profile(user_id):
         return redirect(url_for('profile', user_id=user_id))
 
     return render_template('profile.html', title='Profile', form=form, sform=sform, staffForm=staffForm,
-                           user_id=user_id, category=category, student=student, disability=disability,
+                           user_id=user_id, role=role, student=student, disability=disability,
                            healthCondition=healthCondition, guardian1=guardian1, guardian2=guardian2, staff=staff,
                            school=school)
 
@@ -431,7 +431,7 @@ def profile(user_id):
 @app.route('/student_activate', methods=['GET', 'POST'])
 @login_required
 def student_activate():
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
 
         conn = connector.connect(**config)
         cursor = conn.cursor()
@@ -519,7 +519,7 @@ def student_activate():
 @app.route('/staff_activate', methods=['GET', 'POST'])
 @login_required
 def staff_activate():
-    if current_user.category == 'Staff':
+    if current_user.role == 'Tutor':
 
         conn = connector.connect(**config)
         cursor = conn.cursor()
@@ -558,7 +558,7 @@ def staff_activate():
 @app.route('/add_class', methods=['GET', 'POST'])
 @login_required
 def add_class():
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
 
@@ -605,7 +605,7 @@ def add_class():
 @app.route('/create_session', methods=['GET', 'POST'])
 @login_required
 def create_session():
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
 
@@ -667,7 +667,7 @@ def sessions_search():
 @app.route('/edit_session/<session_id>', methods=['GET', 'POST'])
 @login_required
 def edit_session(session_id):
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
 
@@ -707,7 +707,7 @@ def edit_session(session_id):
 @app.route('/delete_session/<session_id>', methods=['GET', 'POST'])
 @login_required
 def delete_session(session_id):
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         #  Don't even indicate to students that this route exists
         #  flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
@@ -729,7 +729,7 @@ def delete_session(session_id):
 @app.route('/delete_class/<class_id>', methods=['GET', 'POST'])
 @login_required
 def delete_class(class_id):
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         #  Don't even indicate to students that this route exists
         #  flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
@@ -751,7 +751,7 @@ def delete_class(class_id):
 @app.route('/register_class/<class_id>')
 @login_required
 def register_class(class_id):
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         # Create the connection to the database
         conn = connector.connect(**config)
 
@@ -794,7 +794,7 @@ def register_class(class_id):
 @app.route('/edit_class/<class_id>', methods=['GET', 'POST'])
 @login_required
 def edit_class(class_id):
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
 
@@ -850,7 +850,7 @@ def edit_class(class_id):
 @login_required
 def roster(class_id):
     students = None
-    if current_user.category == 'Student':
+    if current_user.role == 'Student':
         flash('You do not have access to that page!', 'danger')
         return redirect(url_for('home'))
 

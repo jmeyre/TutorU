@@ -4,7 +4,7 @@ from flask_login import UserMixin
 
 
 @login_manager.user_loader
-def load_user(user_id):
+def load_user(email):
     # Create the connection to the database
     conn = connector.connect(**config)
 
@@ -12,10 +12,10 @@ def load_user(user_id):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM users WHERE id = '{0}'".format(user_id))
+        "SELECT * FROM users WHERE email = '{0}'".format(email))
 
     result = cursor.fetchone()
-    user = User(result[0], result[1], result[2])
+    user = User(result[0], result[1], result[2], result[3], result[4])
 
     # Commit the data to the database
     conn.commit()

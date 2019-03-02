@@ -18,8 +18,8 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    user_id = StringField('User ID',
-                          validators=[DataRequired(), Length(min=6, max=6, message='User IDs are 6 characters')])
+    user_id = StringField('Email',
+                          validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
