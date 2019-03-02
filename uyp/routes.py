@@ -129,12 +129,7 @@ def class_search():
 
 
 @app.route('/create_account', methods=['GET', 'POST'])
-@login_required
 def create_account():
-    if current_user.category == 'Student':
-        flash('You do not have access to that page!', 'danger')
-        return redirect(url_for('home'))
-
     form = CreateAccountForm()
     if form.validate_on_submit():
         id_chars = "0123456789"
