@@ -16,7 +16,7 @@ from wtforms.validators import ValidationError
 def home():
     student = None
     staff = None
-    classes = None
+    sessions = None
     if current_user.role == 'Student':
 
         conn = connector.connect(**config)
@@ -33,13 +33,12 @@ def home():
                           stu[11], stu[12], stu[13], stu[14], stu[15], stu[16], stu[17], stu[18], stu[19], stu[20],
                           stu[21], stu[22], stu[23], stu[24], stu[25], stu[26])
 
-        cursor.execute("SELECT c.*, i.fName, i.lName "
-                       "FROM takes t, class c, staff i "
-                       "WHERE t.studentID = '{0}' "
-                       "AND c.instructorID = i.id "
-                       "AND t.classID = c.classID".format(current_user.id))
+        cursor.execute("SELECT s.*, i.fName, i.lName "
+                       "FROM sessions s, staff i "
+                       "WHERE s.studentEmail = '{0}' "
+                       "AND s.tutorEmail = i.id ".format(current_user.email))
 
-        classes = cursor.fetchall()
+        sessions = cursor.fetchall()
 
         # Commit the data to the database
         conn.commit()
@@ -57,17 +56,17 @@ def home():
 
         user = User(result[0], result[1], result[2], result[3], result[4])
 
-        # cursor.execute("SELECT c.*, i.fName, i.lName "
-        #                "FROM  class c, staff i "
-        #                "WHERE c.instructorID = i.id AND c.instructorID = '{0}'".format(current_user.id))
-        #
-        # classes = cursor.fetchall()
+        cursor.execute("SELECT s.*, i.fName, i.lName "
+                       "FROM  sessions s, users i "
+                       "WHERE s.studentEmail = i.email AND s.tutorEmail = '{0}'".format(current_user.email))
+
+        sessions = cursor.fetchall()
 
         conn.commit()
         cursor.close()
         conn.close()
 
-    return render_template('home.html', student=student, staff=staff,) # classes=classes)
+    return render_template('home.html', sessions=sessions)
 
 
 @app.route('/class_search')

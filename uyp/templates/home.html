@@ -15,43 +15,31 @@
         <div class="row">
             <div class="col-md-4 card p-2">
                 <h3 class="card-header bg-tutoru-orange text-white text-center">Profile Info</h3>
-                {% if student %}
                     <div class="card-body">
-                        <h5 class="text-center">{% if student.preferred %}{{ student.preferred }}{% else %}{{ student.fName }}{% endif %} {{ student.lName }}</h5>
-                        <p><b>ID:</b> {{ student.id }}</p>
-                        <p><b>Role:</b> {{ current_user.category }}</p>
-                        <p><b>Grade Level:</b> {{ student.gradeLevel }}</p>
-                        <p><b>Graduation Date:</b> {{ student.expGradDate }}</p>
-                        <p><b>Balance Due:</b> {{ student.bill }}</p>
+                        <h5 class="text-center">{{ current_user.fname }} {{ current_user.lname }}</h5>
+                        <div>
+                            <p><b>Email:</b> {{ current_user.email }}</p>
+                            <p><b>Role:</b> {{ current_user.role }}</p>
+                        </div>
                     </div>
-                {% elif staff %}
-                    <div class="card-body">
-                        <h5 class="text-center">{% if staff.preferred %}{{ staff.preferred }}{% else %}{{ staff.fName }}{% endif %} {{ staff.lName }}</h5>
-                        <p><b>ID:</b> {{ staff.id }}</p>
-                        <p><b>Role:</b> {{ current_user.category }}</p>
-                    </div>
-                {% endif %}
-
             </div>
             <div class="col-md-8 card p-2">
-                <h3 class="card-header bg-tutoru-orange text-white text-center">Classes</h3>
+                <h3 class="card-header bg-tutoru-orange text-white text-center">Upcoming Sessions</h3>
                 <div class="card-columns p-2">
                     {% if classes|length == 0 %}
-                        <h3 class="text-center">No Classes</h3>
+                        <h3 class="text-center">No Sessions Scheduled!</h3>
+                        <a class="btn btn-outline-secondary" href="{{ url_for('register') }}">Schedule a Session</a>
                     {% endif %}
 
-                    {% for (title, lvl, maxCap, curSize, instructorID, room, timeSlotID, sessionID, classID, price, iFname, iLname) in classes %}
+                    {% for (sessionID, tutorEmail, studentEmail, sessionType) in sessions %}
                         <div class="card">
                             <div class="card-title">
-                                <h5 class="card-header text-center text-white bg-tutoru-orange">{{ title }}</h5>
-                                <p class="card-text ml-2 mt-2"><b>Session: </b>{{ sessionID }}</p>
-                                <p class="card-text ml-2"><b>Time: </b>{{ timeSlotID }}</p>
-                                <p class="card-text ml-2"><b>Instructor: </b>{{ iFname }} {{ iLname }}</p>
-                                <p class="card-text ml-2"><b>Level: </b>{{ lvl }}</p>
-                                <p class="card-text ml-2"><b>Price: </b>${{ price }}</p>
-                                <p class="card-text ml-2"><b>Room: </b>{{ room }}</p>
-                                {% if current_user.category == 'Staff' %}
-                                    <p class="card-text ml-2"><b>Registered: </b>{{ curSize }}/{{ maxCap }}</p>
+                                <h5 class="card-header text-center text-white bg-tutoru-orange">{{ sessionType }} Session</h5>
+                                {% if current_user.role == 'Student' %}
+                                    <p class="card-text ml-2"><b>Tutor: </b>{{ tutorEmail }}</p>
+                                {% endif %}
+                                {% if current_user.role == 'Tutor' %}
+                                    <p class="card-text ml-2"><b>Student: </b>{{ studentEmail }}</p>
                                 {% endif %}
                             </div>
                         </div>
