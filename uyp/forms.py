@@ -7,7 +7,7 @@ from datetime import datetime
 
 class RegisterForm(FlaskForm):
     # user_id = IntegerField('User ID', validators=[DataRequired()])
-    category = RadioField('Account Category*', choices=[('Tutor', 'Tutor'), ('Student', 'Student')],
+    role = RadioField('Account Type*', choices=[('Tutor', 'Tutor'), ('Student', 'Student')],
                           validators=[DataRequired()])
     email = StringField('Email*', validators=[DataRequired(), Email()])
     password = PasswordField('Password*', validators=[DataRequired()])

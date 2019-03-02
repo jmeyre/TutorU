@@ -132,19 +132,9 @@ def class_search():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        id_chars = "0123456789"
-        p_chars = "abcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyz01234567890-_?!#$^"
 
-        id = ''
-        for x in range(6):
-            id += random.choice(id_chars)
-
-        password = ''
-        for x in range(random.randint(8, 12)):
-            password += random.choice(p_chars)
-
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        user = User(id, form.category.data, hashed_password)
+        hashed_password = bcrypt.generate_password_hash(form.confirm_password.data).decode('utf-8')
+        user = User(form.email.data, form.fname.data, form.lname.data, form.role.data, hashed_password)
 
         conn = connector.connect(**config)
         cursor = conn.cursor()
@@ -157,7 +147,7 @@ def register():
         cursor.close()
         conn.close()
 
-        flash('{0} account created with Email: {1}'.format(user.role, user.id),
+        flash('{0} account created with Email: {1}'.format(user.role, user.email),
               'success')
         return redirect(url_for('home'))
 
