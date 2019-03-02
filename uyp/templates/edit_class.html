@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit Class</legend>
+
+                <!-- title field -->
+                <div class="form-group">
+                    {{ form.title.label(class="form-control-label") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid", value=resultClass.title) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control form-control-lg", value=resultClass.title) }}
+                    {% endif %}
+                </div>
+
+                <!-- lvl field -->
+                <div class="form-group">
+                    {{ form.lvl.label(class="form-control-label") }}
+                    <select class="form-control" id="lvl" name="lvl">
+                            {% if resultClass == '4th - 5th' %}
+                                <option selected value="4th - 5th">4th - 5th</option>
+                                <option value="6th - 8th">6th - 8th</option>
+                                <option value="9th - 12th">9th - 12th</option>
+                            {% elif resultClass == '6th - 8th' %}
+                                <option value="4th - 5th">4th - 5th</option>
+                                <option selected value="6th - 8th">6th - 8th</option>
+                                <option value="9th - 12th">9th - 12th</option>
+                            {%  else %}
+                                <option value="4th - 5th">4th - 5th</option>
+                                <option value="6th - 8th">6th - 8th</option>
+                                <option selected value="9th - 12th">9th - 12th</option>
+                            {% endif %}
+                    </select>
+                </div>
+
+                <!-- maxCap field -->
+                <div class="form-group">
+                    {{ form.maxCap.label(class="form-control-label") }}
+                    {% if form.maxCap.errors %}
+                        {{ form.maxCap(class="form-control form-control-lg is-invalid", value=resultClass.maxCapacity) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.maxCap.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.maxCap(class="form-control form-control-lg", value=resultClass.maxCapacity) }}
+                    {% endif %}
+                </div>
+
+                <!-- instructorID field -->
+                <div class="form-group">
+                    {{ form.instructorID.label(class="form-control-label") }}
+                    <select class="form-control" id="instructorID" name="instructorID">
+                        {% for (staffId, staffFName, staffMName, staffLName, staffSuffix, staffPhone, staffEmail, staffStreet, staffCity, staffState, staffZip) in staff %}
+                            <option value="{{ staffId }}">{{ staffFName }} {{ staffLName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- room field -->
+                <div class="form-group">
+                    {{ form.room.label(class="form-control-label") }}
+                    {% if form.room.errors %}
+                        {{ form.room(class="form-control form-control-lg is-invalid", value=resultClass.room) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.room.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.room(class="form-control form-control-lg", value=resultClass.room) }}
+                    {% endif %}
+                </div>
+
+                <!-- timeslotID field -->
+                <div class="form-group">
+                    {{ form.timeslotID.label(class="form-control-label") }}
+                    <select class="form-control" id="timeslotID" name="timeslotID">
+                        {% for (tId, tStartTime, tEndTime) in timeslots %}
+                            <option value="{{ tId }}">{{ tStartTime }} to {{ tEndTime }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- sessionID field -->
+                <div class="form-group">
+                    {{ form.sessionID.label(class="form-control-label") }}
+                    <select class="form-control" id="sessionID" name="sessionID">
+                        {% for (sId, sYear, sEndDate, sStartDate) in sessions %}
+                            {% if sId == resultClass.sessionID %}
+                                <option selected value="{{ sId }}">{{ sStartDate }} to {{ sEndDate }}</option>
+                            {% else %}
+                                <option value="{{ sId }}">{{ sStartDate }} to {{ sEndDate }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- price field -->
+                <div class="form-group">
+                    {{ form.price.label(class="form-control-label") }}
+                    {% if form.price.errors %}
+                        {{ form.price(class="form-control form-control-lg is-invalid", value=resultClass.price) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.price.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.price(class="form-control form-control-lg", value=resultClass.price) }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-success") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

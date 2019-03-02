@@ -1,0 +1,1959 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+    </nav>
+
+    <div class="content-section">
+        <h1>User ID: {{ user_id }}</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Change Password</legend>
+                <div class="form-group">
+                    {{ form.new_password.label(class="form-control-label") }}
+                    {% if form.new_password.errors %}
+                        {{ form.new_password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.new_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.new_password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.confirm_new_password.label(class="form-control-label") }}
+                    {% if form.confirm_new_password.errors %}
+                        {{ form.confirm_new_password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_new_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirm_new_password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-success") }}
+            </div>
+        </form>
+    </div>
+    {% if category == 'Student' %}
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ sform.hidden_tag() }}
+                <fieldset class="form-group">
+
+                    <div class="content-section p-4">
+
+                        <legend class="border-bottom mb-4">Personal Information</legend>
+                        <!-- fName field -->
+                        <div class="form-group">
+                            {{ sform.fName.label(class="form-control-label") }}
+                            {% if sform.fName.errors %}
+                                {{ sform.fName(class="form-control form-control-lg is-invalid", value=student.fName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.fName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.fName(class="form-control form-control-lg", value=student.fName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- mName field -->
+                        <div class="form-group">
+                            {{ sform.mName.label(class="form-control-label") }}
+                            {% if sform.mName.errors %}
+                                {{ sform.mName(class="form-control form-control-lg is-invalid", value=student.mName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.mName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.mName(class="form-control form-control-lg", value=student.mName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- lName field -->
+                        <div class="form-group">
+                            {{ sform.lName.label(class="form-control-label") }}
+                            {% if sform.lName.errors %}
+                                {{ sform.lName(class="form-control form-control-lg is-invalid", value=student.lName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.lName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.lName(class="form-control form-control-lg", value=student.lName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- suffix field -->
+                        <div class="form-group">
+                            {{ sform.suffix.label(class="form-control-label") }}
+                            {% if sform.suffix.errors %}
+                                {{ sform.suffix(class="form-control form-control-lg is-invalid", value=student.suffix) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.suffix.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.suffix(class="form-control form-control-lg", value=student.suffix) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- preferred field -->
+                        <div class="form-group">
+                            {{ sform.preferred.label(class="form-control-label") }}
+                            {% if sform.preferred.errors %}
+                                {{ sform.preferred(class="form-control form-control-lg is-invalid", value=student.preferred) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.preferred.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.preferred(class="form-control form-control-lg", value=student.preferred) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- email field -->
+                        <div class="form-group">
+                            {{ sform.email.label(class="form-control-label") }}
+                            {% if sform.email.errors %}
+                                {{ sform.email(class="form-control form-control-lg is-invalid", value=student.email) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.email(class="form-control form-control-lg", value=student.email) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- phone field -->
+                        <div class="form-group">
+                            {{ sform.phone.label(class="form-control-label") }}
+                            {% if sform.phone.errors %}
+                                {{ sform.phone(class="form-control form-control-lg is-invalid", value=student.phone) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.phone.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.phone(class="form-control form-control-lg", value=student.phone) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- bDay field -->
+                        <div class="form-group">
+                            {{ sform.bDay.label(class="form-control-label") }}
+                            {{ sform.bDay(class="col-md-4 form-control", type="date", value=student.bDay) }}
+                        </div>
+
+                        <!-- gender field -->
+                        <div class="form-group">
+                            {{ sform.gender.label(class="form-control-label") }}
+                            <select class="form-control" id="gender" name="gender">
+                                {% if student.gender == 'Male' %}
+                                    <option selected value="Male">Male</option>
+                                {% else %}
+                                    <option value="Male">Male</option>
+                                {% endif %}
+                                {% if student.gender == 'Female' %}
+                                    <option selected value="Female">Female</option>
+                                {% else %}
+                                    <option value="Female">Female</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <!-- race field -->
+                        <div class="form-group">
+                            {{ sform.race.label(class="form-control-label") }}
+                            <select class="form-control" id="race" name="race">
+                                {% if student.race =='Caucasian' %}
+                                    <option selected value="Caucasian">Caucasian</option>
+                                {% else %}
+                                    <option value="Caucasian">Caucasian</option>
+                                {% endif %}
+                                {% if student.race =='African American' %}
+                                    <option selected value="African American">African American</option>
+                                {% else %}
+                                    <option value="African American">African American</option>
+                                {% endif %}
+                                {% if student.race =='Native American' %}
+                                    <option selected value="Native American">Native American</option>
+                                {% else %}
+                                    <option value="Native American">Native American</option>
+                                {% endif %}
+                                {% if student.race =='Pacific Islander' %}
+                                    <option selected value="Pacific Islander">Pacific Islander</option>
+                                {% else %}
+                                    <option value="Pacific Islander">Pacific Islander</option>
+                                {% endif %}
+                                {% if student.race =='Asian' %}
+                                    <option selected value="Asian">Asian</option>
+                                {% else %}
+                                    <option value="Asian">Asian</option>
+                                {% endif %}
+                                {% if student.race =='Indian' %}
+                                    <option selected value="Indian">Indian</option>
+                                {% else %}
+                                    <option value="Indian">Indian</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <!-- otherInfo field -->
+                        <div class="form-group">
+                            {{ sform.otherInfo.label(class="form-control-label") }}
+                            {% if sform.otherInfo.errors %}
+                                {{ sform.otherInfo(class="form-control form-control-lg is-invalid", value=student.otherInfo) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.otherInfo.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.otherInfo(class="form-control form-control-lg", value=student.otherInfo) }}
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <div class="content-section p-4">
+
+                        <legend class="border-bottom mb-4">Education Information</legend>
+
+                        <!-- gradeLevel field -->
+                        <div class="form-group">
+                            {{ sform.gradeLevel.label(class="form-control-label") }}
+                            <select class="form-control" id="gradeLevel" name="gradeLevel">
+                                {% if student.gradeLevel =='4th' %}
+                                    <option selected value="4th">4th</option>
+                                {% else %}
+                                    <option value="4th">4th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='5th' %}
+                                    <option selected value="5th">5th</option>
+                                {% else %}
+                                    <option value="5th">5th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='6th' %}
+                                    <option selected value="6th">6th</option>
+                                {% else %}
+                                    <option value="6th">6th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='7th' %}
+                                    <option selected value="7th">7th</option>
+                                {% else %}
+                                    <option value="7th">7th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='8th' %}
+                                    <option selected value="8th">8th</option>
+                                {% else %}
+                                    <option value="8th">8th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='9th' %}
+                                    <option selected value="9th">9th</option>
+                                {% else %}
+                                    <option value="9th">9th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='10th' %}
+                                    <option selected value="10th">10th</option>
+                                {% else %}
+                                    <option value="10th">10th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='11th' %}
+                                    <option selected value="11th">11th</option>
+                                {% else %}
+                                    <option value="11th">11th</option>
+                                {% endif %}
+                                {% if student.gradeLevel =='12th' %}
+                                    <option selected value="12th">12th</option>
+                                {% else %}
+                                    <option value="12th">12th</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <!-- expSchool field -->
+                        <div class="form-group">
+                            {{ sform.expSchool.label(class="form-control-label") }}
+                            {% if sform.expSchool.errors %}
+                                {{ sform.expSchool(class="form-control form-control-lg is-invalid", value=student.expSchool) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.expSchool.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.expSchool(class="form-control form-control-lg", value=student.expSchool) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- expSchoolType field -->
+                        <div class="form-group">
+                            {{ sform.expSchoolType.label(class="form-control-label") }}
+                            <select class="form-control" id="expSchoolType" name="expSchoolType">
+                                {% if school.type == 'Public' %}
+                                    <option selected value="Public">Public</option>
+                                {% else %}
+                                    <option value="Public">Public</option>
+                                {% endif %}
+                                {% if school.type == 'Private' %}
+                                    <option selected value="Private">Private</option>
+                                {% else %}
+                                    <option value="Private">Private</option>
+                                {% endif %}
+                                {% if school.type == 'Home Schooled' %}
+                                    <option selected value="Home Schooled">Home Schooled</option>
+                                {% else %}
+                                    <option value="Home Schooled">Home Schooled</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <!-- expSchoolDistrict field -->
+                        <div class="form-group">
+                            {{ sform.expSchoolDistrict.label(class="form-control-label") }}
+                            {% if sform.expSchoolDistrict.errors %}
+                                {{ sform.expSchoolDistrict(class="form-control form-control-lg is-invalid", value=school.district) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.expSchoolDistrict.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.expSchoolDistrict(class="form-control form-control-lg", value=school.district) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- expGradDate field -->
+                        <div class="form-group">
+                            {{ sform.expGradDate.label(class="form-control-label") }}
+                            {{ sform.expGradDate(class="col-md-4 form-control", type="date", format="%Y-%m-%d", value=student.expGradDate) }}
+                        </div>
+                    </div>
+
+                    <div class="content-section p-4">
+
+                        <legend class="border-bottom mb-4">Student Address</legend>
+                        <!-- street field -->
+                        <div class="form-group">
+                            {{ sform.street.label(class="form-control-label") }}
+                            {% if sform.street.errors %}
+                                {{ sform.street(class="form-control form-control-lg is-invalid", value=student.street) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.street.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.street(class="form-control form-control-lg", value=student.street) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- city field -->
+                        <div class="form-group">
+                            {{ sform.city.label(class="form-control-label") }}
+                            {% if sform.city.errors %}
+                                {{ sform.city(class="form-control form-control-lg is-invalid", value=student.city) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.city.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.city(class="form-control form-control-lg", value=student.city) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- state field -->
+                        <div class="form-group">
+                            {{ sform.state.label(class="form-control-label") }}
+                            <select class="form-control" id="state" name="state">
+                                {% if student.state =='AL' %}
+                                    <option selected value="AL">Alabama</option>
+                                {% else %}
+                                    <option value="AL">Alabama</option>
+                                {% endif %}
+                                {% if student.state =='AK' %}
+                                    <option selected value="AK">Alaska</option>
+                                {% else %}
+                                    <option value="AK">Alaska</option>
+                                {% endif %}
+                                {% if student.state == 'AZ' %}
+                                    <option selected value="AZ">Arizona</option>
+                                {% else %}
+                                    <option value="AZ">Arizona</option>
+                                {% endif %}
+                                {% if student.state == 'AR' %}
+                                    <option selected value="AR">Arkansas</option>
+                                {% else %}
+                                    <option value="AR">Arkansas</option>
+                                {% endif %}
+                                {% if student.state == 'CA' %}
+                                    <option selected value="CA">California</option>
+                                {% else %}
+                                    <option value="CA">California</option>
+                                {% endif %}
+                                {% if student.state == 'CO' %}
+                                    <option selected value="CO">Colorado</option>
+                                {% else %}
+                                    <option value="CO">Colorado</option>
+                                {% endif %}
+                                {% if student.state == 'CT' %}
+                                    <option selected value="CT">Connecticut</option>
+                                {% else %}
+                                    <option value="CT">Connecticut</option>
+                                {% endif %}
+                                {% if student.state == 'DE' %}
+                                    <option selected value="DE">Delaware</option>
+                                {% else %}
+                                    <option value="DE">Delaware</option>
+                                {% endif %}
+                                {% if student.state == 'FL' %}
+                                    <option selected value="FL">Florida</option>
+                                {% else %}
+                                    <option value="FL">Florida</option>
+                                {% endif %}
+                                {% if student.state == 'GA' %}
+                                    <option selected value="GA">Georgia</option>
+                                {% else %}
+                                    <option value="GA">Georgia</option>
+                                {% endif %}
+                                {% if student.state == 'HI' %}
+                                    <option selected value="HI">Hawaii</option>
+                                {% else %}
+                                    <option value="HI">Hawaii</option>
+                                {% endif %}
+                                {% if student.state == 'ID' %}
+                                    <option selected value="ID">Idaho</option>
+                                {% else %}
+                                    <option value="ID">Idaho</option>
+                                {% endif %}
+                                {% if student.state == 'IL' %}
+                                    <option selected value="IL">Illinois</option>
+                                {% else %}
+                                    <option value="IL">Illinois</option>
+                                {% endif %}
+                                {% if student.state == 'IN' %}
+                                    <option selected value="IN">Indiana</option>
+                                {% else %}
+                                    <option value="IN">Indiana</option>
+                                {% endif %}
+                                {% if student.state == 'IA' %}
+                                    <option selected value="IA">Iowa</option>
+                                {% else %}
+                                    <option value="IA">Iowa</option>
+                                {% endif %}
+                                {% if student.state == 'KS' %}
+                                    <option selected value="KS">Kansas</option>
+                                {% else %}
+                                    <option value="KS">Kansas</option>
+                                {% endif %}
+                                {% if student.state == 'KY' %}
+                                    <option selected value="KY">Kentucky</option>
+                                {% else %}
+                                    <option value="KY">Kentucky</option>
+                                {% endif %}
+                                {% if student.state == 'LA' %}
+                                    <option selected value="LA">Louisiana</option>
+                                {% else %}
+                                    <option value="LA">Louisiana</option>
+                                {% endif %}
+                                {% if student.state == 'ME' %}
+                                    <option selected value="ME">Maine</option>
+                                {% else %}
+                                    <option value="ME">Maine</option>
+                                {% endif %}
+                                {% if student.state == 'MD' %}
+                                    <option selected value="MD">Maryland</option>
+                                {% else %}
+                                    <option value="MD">Maryland</option>
+                                {% endif %}
+                                {% if student.state == 'MA' %}
+                                    <option selected value="MA">Massachusetts</option>
+                                {% else %}
+                                    <option value="MA">Massachusetts</option>
+                                {% endif %}
+                                {% if student.state == 'MI' %}
+                                    <option selected value="MI">Michigan</option>
+                                {% else %}
+                                    <option value="MI">Michigan</option>
+                                {% endif %}
+                                {% if student.state == 'MN' %}
+                                    <option selected value="MN">Minnesota</option>
+                                {% else %}
+                                    <option value="MN">Minnesota</option>
+                                {% endif %}
+                                {% if student.state == 'MS' %}
+                                    <option selected value="MS">Mississippi</option>
+                                {% else %}
+                                    <option value="MS">Mississippi</option>
+                                {% endif %}
+                                {% if student.state == 'MO' %}
+                                    <option selected value="MO">Missouri</option>
+                                {% else %}
+                                    <option value="MO">Missouri</option>
+                                {% endif %}
+                                {% if student.state == 'MT' %}
+                                    <option selected value="MT">Montana</option>
+                                {% else %}
+                                    <option value="MT">Montana</option>
+                                {% endif %}
+                                {% if student.state == 'NE' %}
+                                    <option selected value="NE">Nebraska</option>
+                                {% else %}
+                                    <option value="NE">Nebraska</option>
+                                {% endif %}
+                                {% if student.state == 'NV' %}
+                                    <option selected value="NV">Nevada</option>
+                                {% else %}
+                                    <option value="NV">Nevada</option>
+                                {% endif %}
+                                {% if student.state == 'NH' %}
+                                    <option selected value="NH">New Hampshire</option>
+                                {% else %}
+                                    <option value="NH">New Hampshire</option>
+                                {% endif %}
+                                {% if student.state == 'NJ' %}
+                                    <option selected value="NJ">New Jersey</option>
+                                {% else %}
+                                    <option value="NJ">New Jersey</option>
+                                {% endif %}
+                                {% if student.state == 'NM' %}
+                                    <option selected value="NM">New Mexico</option>
+                                {% else %}
+                                    <option value="NM">New Mexico</option>
+                                {% endif %}
+                                {% if student.state == 'NY' %}
+                                    <option selected value="NY">New York</option>
+                                {% else %}
+                                    <option value="NY">New York</option>
+                                {% endif %}
+                                {% if student.state == 'NC' %}
+                                    <option selected value="NC">North Carolina</option>
+                                {% else %}
+                                    <option value="NC">North Carolina</option>
+                                {% endif %}
+                                {% if student.state == 'ND' %}
+                                    <option selected value="ND">North Dakota</option>
+                                {% else %}
+                                    <option value="ND">North Dakota</option>
+                                {% endif %}
+                                {% if student.state == 'OH' %}
+                                    <option selected value="OH">Ohio</option>
+                                {% else %}
+                                    <option value="OH">Ohio</option>
+                                {% endif %}
+                                {% if student.state == 'OK' %}
+                                    <option selected value="OK">Oklahoma</option>
+                                {% else %}
+                                    <option value="OK">Oklahoma</option>
+                                {% endif %}
+                                {% if student.state == 'OR' %}
+                                    <option selected value="OR">Oregon</option>
+                                {% else %}
+                                    <option value="OR">Oregon</option>
+                                {% endif %}
+                                {% if student.state == 'PA' %}
+                                    <option selected value="PA">Pennsylvania</option>
+                                {% else %}
+                                    <option value="PA">Pennsylvania</option>
+                                {% endif %}
+                                {% if student.state == 'RI' %}
+                                    <option selected value="RI">Rhode Island</option>
+                                {% else %}
+                                    <option value="RI">Rhode Island</option>
+                                {% endif %}
+                                {% if student.state == 'SC' %}
+                                    <option selected value="SC">South Carolina</option>
+                                {% else %}
+                                    <option value="SC">South Carolina</option>
+                                {% endif %}
+                                {% if student.state == 'SD' %}
+                                    <option selected value="SD">South Dakota</option>
+                                {% else %}
+                                    <option value="SD">South Dakota</option>
+                                {% endif %}
+                                {% if student.state == 'TN' %}
+                                    <option selected value="TN">Tennessee</option>
+                                {% else %}
+                                    <option value="TN">Tennessee</option>
+                                {% endif %}
+                                {% if student.state == 'TX' %}
+                                    <option selected value="TX">Texas</option>
+                                {% else %}
+                                    <option value="TX">Texas</option>
+                                {% endif %}
+                                {% if student.state == 'UT' %}
+                                    <option selected value="UT">Utah</option>
+                                {% else %}
+                                    <option value="UT">Utah</option>
+                                {% endif %}
+                                {% if student.state == 'VT' %}
+                                    <option selected value="VT">Vermont</option>
+                                {% else %}
+                                    <option value="VT">Vermont</option>
+                                {% endif %}
+                                {% if student.state == 'VA' %}
+                                    <option selected value="VA">Virginia</option>
+                                {% else %}
+                                    <option value="VA">Virginia</option>
+                                {% endif %}
+                                {% if student.state == 'WA' %}
+                                    <option selected value="WA">Washington</option>
+                                {% else %}
+                                    <option value="WA">Washington</option>
+                                {% endif %}
+                                {% if student.state == 'WV' %}
+                                    <option selected value="WV">West Virginia</option>
+                                {% else %}
+                                    <option value="WV">West Virginia</option>
+                                {% endif %}
+                                {% if student.state == 'WI' %}
+                                    <option selected value="WI">Wisconsin</option>
+                                {% else %}
+                                    <option value="WI">Wisconsin</option>
+                                {% endif %}
+                                {% if student.state == 'WY' %}
+                                    <option selected value="WY">Wyoming</option>
+                                {% else %}
+                                    <option value="WY">Wyoming</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <!-- zip field -->
+                        <div class="form-group">
+                            {{ sform.zip.label(class="form-control-label") }}
+                            {% if sform.zip.errors %}
+                                {{ sform.zip(class="form-control form-control-lg is-invalid", value=student.zip) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.zip.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.zip(class="form-control form-control-lg", value=student.zip) }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="content-section p-4">
+
+                        <legend class="border-bottom mb-4">Extra Student Information</legend>
+
+                        <div>
+                            <!-- disability field -->
+                            {{ sform.disability.label(class="form-control-label") }}
+                            {% if disability %}
+                                <input class="conditional_form_part_activator form-group" type="checkbox" id="disability"
+                                       name="disability" checked="on">
+                            {% else %}
+                                <input class="conditional_form_part_activator form-group" type="checkbox" id="disability"
+                                       name="disability">
+                            {% endif %}
+                            <div class="form-group conditional_form_part">
+
+                                <!-- disabilityDesc field -->
+                                <div class="form-group">
+                                    {{ sform.disabilityDesc.label(class="form-control-label") }}
+                                    {% if sform.disabilityDesc.errors %}
+                                        {% if disability %}
+                                            {{ sform.disabilityDesc(class="form-control form-control-lg is-invalid", value=disability.disability) }}
+                                        {% else %}
+                                            {{ sform.disabilityDesc(class="form-control form-control-lg is-invalid", value=disability.disability) }}
+                                        {% endif %}
+                                        <div class="invalid-feedback">
+                                            {% for error in sform.disabilityDesc.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {% if disability %}
+                                            {{ sform.disabilityDesc(class="form-control form-control-lg", value=disability.disability) }}
+                                        {% else %}
+                                            {{ sform.disabilityDesc(class="form-control form-control-lg", value=disability.disability) }}
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- healthConds field -->
+                        {{ sform.healthConds.label(class="form-control-label") }}
+                        {% if healthCondition %}
+                            <input class="conditional_form_part_activator form-group" type="checkbox" id="healthConds"
+                                   name="healthConds" checked="on">
+                        {% else %}
+                            <input class="conditional_form_part_activator form-group" type="checkbox" id="healthConds"
+                                   name="healthConds">
+                        {% endif %}
+                        <div class="form-group conditional_form_part">
+
+                            <!-- healthCondsCond field -->
+                            <div class="form-group">
+                                {{ sform.healthCondsCond.label(class="form-control-label") }}
+                                {% if sform.healthCondsCond.errors %}
+                                    {{ sform.healthCondsCond(class="form-control form-control-lg is-invalid", value=healthCondition.healthCondsCond) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.healthCondsCond.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.healthCondsCond(class="form-control form-control-lg", value=healthCondition.healthCondsCond) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- healthCondsDesc field -->
+                            <div class="form-group">
+                                {{ sform.healthCondsDesc.label(class="form-control-label") }}
+                                {% if sform.healthCondsDesc.errors %}
+                                    {{ sform.healthCondsDesc(class="form-control form-control-lg is-invalid", value=healthCondition.healthCondsDesc) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.healthCondsDesc.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.healthCondsDesc(class="form-control form-control-lg", value=healthCondition.healthCondsDesc) }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- ESL field -->
+                        <div class="form-group">
+                            {{ sform.ESL.label(class="form-control-label") }}
+                            {% if student.esl == '1' %} {# Might not be 1 #}
+                                <input class="form-group" type="checkbox" id="ESL" name="ESL" checked="on">
+                            {% else %}
+                                <input class="form-group" type="checkbox" id="ESL" name="ESL">
+                            {% endif %}
+                        </div>
+
+                        <!-- GT field -->
+                        <div class="form-group">
+                            {{ sform.GT.label(class="form-control-label") }}
+                            {% if student.gt == '1' %} {# Might not be 1 #}
+                                <input class="form-group" type="checkbox" id="GT" name="GT" checked="on">
+                            {% else %}
+                                <input class="form-group" type="checkbox" id="GT" name="GT">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="content-section p-4">
+
+                        <legend class="border-bottom mb-4">Guardian Information</legend>
+
+                        <!-- guardian1_fName field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_fName.label(class="form-control-label") }}
+                            {% if sform.guardian1_fName.errors %}
+                                {{ sform.guardian1_fName(class="form-control form-control-lg is-invalid", value=guardian1.fName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_fName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_fName(class="form-control form-control-lg", value=guardian1.fName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- guardian1_mName field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_mName.label(class="form-control-label") }}
+                            {% if sform.guardian1_mName.errors %}
+                                {{ sform.guardian1_mName(class="form-control form-control-lg is-invalid", value=guardian1.mName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_mName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_mName(class="form-control form-control-lg", value=guardian1.mName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- guardian1_lName field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_lName.label(class="form-control-label") }}
+                            {% if sform.guardian1_lName.errors %}
+                                {{ sform.guardian1_lName(class="form-control form-control-lg is-invalid", value=guardian1.lName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_lName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_lName(class="form-control form-control-lg", value=guardian1.lName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- guardian1_phone field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_phone.label(class="form-control-label") }}
+                            {% if sform.guardian1_phone.errors %}
+                                {{ sform.guardian1_phone(class="form-control form-control-lg is-invalid", value=guardian1.phone) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_phone.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_phone(class="form-control form-control-lg", value=guardian1.phone) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- guardian1_email field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_email.label(class="form-control-label") }}
+                            {% if sform.guardian1_email.errors %}
+                                {{ sform.guardian1_email(class="form-control form-control-lg is-invalid", value=guardian1.email) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_email(class="form-control form-control-lg", value=guardian1.email) }}
+                            {% endif %}
+                        </div>
+
+                        <legend class="border-bottom mb-4">Guardian Address</legend>
+
+                        <!-- guardian1_street field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_street.label(class="form-control-label") }}
+                            {% if sform.guardian1_street.errors %}
+                                {{ sform.guardian1_street(class="form-control form-control-lg is-invalid", value=guardian1.street) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_street.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_street(class="form-control form-control-lg", value=guardian1.street) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- guardian1_city field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_city.label(class="form-control-label") }}
+                            {% if sform.guardian1_city.errors %}
+                                {{ sform.guardian1_city(class="form-control form-control-lg is-invalid", value=guardian1.city) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_city.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_city(class="form-control form-control-lg", value=guardian1.city) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- guardian1_state field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_state.label(class="form-control-label") }}
+                            <select class="form-control" id="guardian1_state" name="guardian1_state">
+                                {% if guardian1.state =='AL' %}
+                                    <option selected value="AL">Alabama</option>
+                                {% else %}
+                                    <option value="AL">Alabama</option>
+                                {% endif %}
+                                {% if guardian1.state =='AK' %}
+                                    <option selected value="AK">Alaska</option>
+                                {% else %}
+                                    <option value="AK">Alaska</option>
+                                {% endif %}
+                                {% if guardian1.state == 'AZ' %}
+                                    <option selected value="AZ">Arizona</option>
+                                {% else %}
+                                    <option value="AZ">Arizona</option>
+                                {% endif %}
+                                {% if guardian1.state == 'AR' %}
+                                    <option selected value="AR">Arkansas</option>
+                                {% else %}
+                                    <option value="AR">Arkansas</option>
+                                {% endif %}
+                                {% if guardian1.state == 'CA' %}
+                                    <option selected value="CA">California</option>
+                                {% else %}
+                                    <option value="CA">California</option>
+                                {% endif %}
+                                {% if guardian1.state == 'CO' %}
+                                    <option selected value="CO">Colorado</option>
+                                {% else %}
+                                    <option value="CO">Colorado</option>
+                                {% endif %}
+                                {% if guardian1.state == 'CT' %}
+                                    <option selected value="CT">Connecticut</option>
+                                {% else %}
+                                    <option value="CT">Connecticut</option>
+                                {% endif %}
+                                {% if guardian1.state == 'DE' %}
+                                    <option selected value="DE">Delaware</option>
+                                {% else %}
+                                    <option value="DE">Delaware</option>
+                                {% endif %}
+                                {% if guardian1.state == 'FL' %}
+                                    <option selected value="FL">Florida</option>
+                                {% else %}
+                                    <option value="FL">Florida</option>
+                                {% endif %}
+                                {% if guardian1.state == 'GA' %}
+                                    <option selected value="GA">Georgia</option>
+                                {% else %}
+                                    <option value="GA">Georgia</option>
+                                {% endif %}
+                                {% if guardian1.state == 'HI' %}
+                                    <option selected value="HI">Hawaii</option>
+                                {% else %}
+                                    <option value="HI">Hawaii</option>
+                                {% endif %}
+                                {% if guardian1.state == 'ID' %}
+                                    <option selected value="ID">Idaho</option>
+                                {% else %}
+                                    <option value="ID">Idaho</option>
+                                {% endif %}
+                                {% if guardian1.state == 'IL' %}
+                                    <option selected value="IL">Illinois</option>
+                                {% else %}
+                                    <option value="IL">Illinois</option>
+                                {% endif %}
+                                {% if guardian1.state == 'IN' %}
+                                    <option selected value="IN">Indiana</option>
+                                {% else %}
+                                    <option value="IN">Indiana</option>
+                                {% endif %}
+                                {% if guardian1.state == 'IA' %}
+                                    <option selected value="IA">Iowa</option>
+                                {% else %}
+                                    <option value="IA">Iowa</option>
+                                {% endif %}
+                                {% if guardian1.state == 'KS' %}
+                                    <option selected value="KS">Kansas</option>
+                                {% else %}
+                                    <option value="KS">Kansas</option>
+                                {% endif %}
+                                {% if guardian1.state == 'KY' %}
+                                    <option selected value="KY">Kentucky</option>
+                                {% else %}
+                                    <option value="KY">Kentucky</option>
+                                {% endif %}
+                                {% if guardian1.state == 'LA' %}
+                                    <option selected value="LA">Louisiana</option>
+                                {% else %}
+                                    <option value="LA">Louisiana</option>
+                                {% endif %}
+                                {% if guardian1.state == 'ME' %}
+                                    <option selected value="ME">Maine</option>
+                                {% else %}
+                                    <option value="ME">Maine</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MD' %}
+                                    <option selected value="MD">Maryland</option>
+                                {% else %}
+                                    <option value="MD">Maryland</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MA' %}
+                                    <option selected value="MA">Massachusetts</option>
+                                {% else %}
+                                    <option value="MA">Massachusetts</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MI' %}
+                                    <option selected value="MI">Michigan</option>
+                                {% else %}
+                                    <option value="MI">Michigan</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MN' %}
+                                    <option selected value="MN">Minnesota</option>
+                                {% else %}
+                                    <option value="MN">Minnesota</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MS' %}
+                                    <option selected value="MS">Mississippi</option>
+                                {% else %}
+                                    <option value="MS">Mississippi</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MO' %}
+                                    <option selected value="MO">Missouri</option>
+                                {% else %}
+                                    <option value="MO">Missouri</option>
+                                {% endif %}
+                                {% if guardian1.state == 'MT' %}
+                                    <option selected value="MT">Montana</option>
+                                {% else %}
+                                    <option value="MT">Montana</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NE' %}
+                                    <option selected value="NE">Nebraska</option>
+                                {% else %}
+                                    <option value="NE">Nebraska</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NV' %}
+                                    <option selected value="NV">Nevada</option>
+                                {% else %}
+                                    <option value="NV">Nevada</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NH' %}
+                                    <option selected value="NH">New Hampshire</option>
+                                {% else %}
+                                    <option value="NH">New Hampshire</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NJ' %}
+                                    <option selected value="NJ">New Jersey</option>
+                                {% else %}
+                                    <option value="NJ">New Jersey</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NM' %}
+                                    <option selected value="NM">New Mexico</option>
+                                {% else %}
+                                    <option value="NM">New Mexico</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NY' %}
+                                    <option selected value="NY">New York</option>
+                                {% else %}
+                                    <option value="NY">New York</option>
+                                {% endif %}
+                                {% if guardian1.state == 'NC' %}
+                                    <option selected value="NC">North Carolina</option>
+                                {% else %}
+                                    <option value="NC">North Carolina</option>
+                                {% endif %}
+                                {% if guardian1.state == 'ND' %}
+                                    <option selected value="ND">North Dakota</option>
+                                {% else %}
+                                    <option value="ND">North Dakota</option>
+                                {% endif %}
+                                {% if guardian1.state == 'OH' %}
+                                    <option selected value="OH">Ohio</option>
+                                {% else %}
+                                    <option value="OH">Ohio</option>
+                                {% endif %}
+                                {% if guardian1.state == 'OK' %}
+                                    <option selected value="OK">Oklahoma</option>
+                                {% else %}
+                                    <option value="OK">Oklahoma</option>
+                                {% endif %}
+                                {% if guardian1.state == 'OR' %}
+                                    <option selected value="OR">Oregon</option>
+                                {% else %}
+                                    <option value="OR">Oregon</option>
+                                {% endif %}
+                                {% if guardian1.state == 'PA' %}
+                                    <option selected value="PA">Pennsylvania</option>
+                                {% else %}
+                                    <option value="PA">Pennsylvania</option>
+                                {% endif %}
+                                {% if guardian1.state == 'RI' %}
+                                    <option selected value="RI">Rhode Island</option>
+                                {% else %}
+                                    <option value="RI">Rhode Island</option>
+                                {% endif %}
+                                {% if guardian1.state == 'SC' %}
+                                    <option selected value="SC">South Carolina</option>
+                                {% else %}
+                                    <option value="SC">South Carolina</option>
+                                {% endif %}
+                                {% if guardian1.state == 'SD' %}
+                                    <option selected value="SD">South Dakota</option>
+                                {% else %}
+                                    <option value="SD">South Dakota</option>
+                                {% endif %}
+                                {% if guardian1.state == 'TN' %}
+                                    <option selected value="TN">Tennessee</option>
+                                {% else %}
+                                    <option value="TN">Tennessee</option>
+                                {% endif %}
+                                {% if guardian1.state == 'TX' %}
+                                    <option selected value="TX">Texas</option>
+                                {% else %}
+                                    <option value="TX">Texas</option>
+                                {% endif %}
+                                {% if guardian1.state == 'UT' %}
+                                    <option selected value="UT">Utah</option>
+                                {% else %}
+                                    <option value="UT">Utah</option>
+                                {% endif %}
+                                {% if guardian1.state == 'VT' %}
+                                    <option selected value="VT">Vermont</option>
+                                {% else %}
+                                    <option value="VT">Vermont</option>
+                                {% endif %}
+                                {% if guardian1.state == 'VA' %}
+                                    <option selected value="VA">Virginia</option>
+                                {% else %}
+                                    <option value="VA">Virginia</option>
+                                {% endif %}
+                                {% if guardian1.state == 'WA' %}
+                                    <option selected value="WA">Washington</option>
+                                {% else %}
+                                    <option value="WA">Washington</option>
+                                {% endif %}
+                                {% if guardian1.state == 'WV' %}
+                                    <option selected value="WV">West Virginia</option>
+                                {% else %}
+                                    <option value="WV">West Virginia</option>
+                                {% endif %}
+                                {% if guardian1.state == 'WI' %}
+                                    <option selected value="WI">Wisconsin</option>
+                                {% else %}
+                                    <option value="WI">Wisconsin</option>
+                                {% endif %}
+                                {% if guardian1.state == 'WY' %}
+                                    <option selected value="WY">Wyoming</option>
+                                {% else %}
+                                    <option value="WY">Wyoming</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <!-- guardian1_zip field -->
+                        <div class="form-group">
+                            {{ sform.guardian1_zip.label(class="form-control-label") }}
+                            {% if sform.guardian1_zip.errors %}
+                                {{ sform.guardian1_zip(class="form-control form-control-lg is-invalid", value=guardian1.zip) }}
+                                <div class="invalid-feedback">
+                                    {% for error in sform.guardian1_zip.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ sform.guardian1_zip(class="form-control form-control-lg", value=guardian1.zip) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="content-section p-4">
+
+                        {{ sform.guardian2_prompt.label(class="form-control-label") }}
+                        {% if guardian2 %}
+                            <input class="conditional_form_part_activator form-group" type="checkbox" id="guardian2_prompt"
+                               name="guardian2_prompt" checked="on">
+                        {% else %}
+                            <input class="conditional_form_part_activator form-group" type="checkbox" id="guardian2_prompt"
+                               name="guardian2_prompt">
+                        {% endif %}
+                        <div class="form-group conditional_form_part">
+                            <!-- guardian2_fName field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_fName.label(class="form-control-label") }}
+                                {% if sform.guardian2_fName.errors %}
+                                    {{ sform.guardian2_fName(class="form-control form-control-lg is-invalid", value=guardian2.fName) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_fName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_fName(class="form-control form-control-lg", value=guardian2.fName) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- guardian2_mName field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_mName.label(class="form-control-label") }}
+                                {% if sform.guardian2_mName.errors %}
+                                    {{ sform.guardian2_mName(class="form-control form-control-lg is-invalid", value=guardian2.mName) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_mName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_mName(class="form-control form-control-lg", value=guardian2.mName) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- guardian2_lName field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_lName.label(class="form-control-label") }}
+                                {% if sform.guardian2_lName.errors %}
+                                    {{ sform.guardian2_lName(class="form-control form-control-lg is-invalid", value=guardian2.lName) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_lName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_lName(class="form-control form-control-lg", value=guardian2.lName) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- guardian2_phone field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_phone.label(class="form-control-label") }}
+                                {% if sform.guardian2_phone.errors %}
+                                    {{ sform.guardian2_phone(class="form-control form-control-lg is-invalid", value=guardian2.phone) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_phone.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_phone(class="form-control form-control-lg", value=guardian2.phone) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- guardian2_email field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_email.label(class="form-control-label") }}
+                                {% if sform.guardian2_email.errors %}
+                                    {{ sform.guardian2_email(class="form-control form-control-lg is-invalid", value=guardian2.email) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_email(class="form-control form-control-lg", value=guardian2.email) }}
+                                {% endif %}
+                            </div>
+
+                            <legend class="border-bottom mb-4">Guardian Address</legend>
+
+                            <!-- guardian2_street field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_street.label(class="form-control-label") }}
+                                {% if sform.guardian2_street.errors %}
+                                    {{ sform.guardian2_street(class="form-control form-control-lg is-invalid", value=guardian2.street) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_street.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_street(class="form-control form-control-lg", value=guardian2.street) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- guardian2_city field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_city.label(class="form-control-label") }}
+                                {% if sform.guardian2_city.errors %}
+                                    {{ sform.guardian2_city(class="form-control form-control-lg is-invalid", value=guardian2.city) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_city.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_city(class="form-control form-control-lg", value=guardian2.city) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- guardian2_state field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_state.label(class="form-control-label") }}
+                                <select class="form-control" id="guardian2_state" name="guardian2_state">
+                                {% if guardian2.state =='AL' %}
+                                    <option selected value="AL">Alabama</option>
+                                {% else %}
+                                    <option value="AL">Alabama</option>
+                                {% endif %}
+                                {% if guardian2.state =='AK' %}
+                                    <option selected value="AK">Alaska</option>
+                                {% else %}
+                                    <option value="AK">Alaska</option>
+                                {% endif %}
+                                {% if guardian2.state == 'AZ' %}
+                                    <option selected value="AZ">Arizona</option>
+                                {% else %}
+                                    <option value="AZ">Arizona</option>
+                                {% endif %}
+                                {% if guardian2.state == 'AR' %}
+                                    <option selected value="AR">Arkansas</option>
+                                {% else %}
+                                    <option value="AR">Arkansas</option>
+                                {% endif %}
+                                {% if guardian2.state == 'CA' %}
+                                    <option selected value="CA">California</option>
+                                {% else %}
+                                    <option value="CA">California</option>
+                                {% endif %}
+                                {% if guardian2.state == 'CO' %}
+                                    <option selected value="CO">Colorado</option>
+                                {% else %}
+                                    <option value="CO">Colorado</option>
+                                {% endif %}
+                                {% if guardian2.state == 'CT' %}
+                                    <option selected value="CT">Connecticut</option>
+                                {% else %}
+                                    <option value="CT">Connecticut</option>
+                                {% endif %}
+                                {% if guardian2.state == 'DE' %}
+                                    <option selected value="DE">Delaware</option>
+                                {% else %}
+                                    <option value="DE">Delaware</option>
+                                {% endif %}
+                                {% if guardian2.state == 'FL' %}
+                                    <option selected value="FL">Florida</option>
+                                {% else %}
+                                    <option value="FL">Florida</option>
+                                {% endif %}
+                                {% if guardian2.state == 'GA' %}
+                                    <option selected value="GA">Georgia</option>
+                                {% else %}
+                                    <option value="GA">Georgia</option>
+                                {% endif %}
+                                {% if guardian2.state == 'HI' %}
+                                    <option selected value="HI">Hawaii</option>
+                                {% else %}
+                                    <option value="HI">Hawaii</option>
+                                {% endif %}
+                                {% if guardian2.state == 'ID' %}
+                                    <option selected value="ID">Idaho</option>
+                                {% else %}
+                                    <option value="ID">Idaho</option>
+                                {% endif %}
+                                {% if guardian2.state == 'IL' %}
+                                    <option selected value="IL">Illinois</option>
+                                {% else %}
+                                    <option value="IL">Illinois</option>
+                                {% endif %}
+                                {% if guardian2.state == 'IN' %}
+                                    <option selected value="IN">Indiana</option>
+                                {% else %}
+                                    <option value="IN">Indiana</option>
+                                {% endif %}
+                                {% if guardian2.state == 'IA' %}
+                                    <option selected value="IA">Iowa</option>
+                                {% else %}
+                                    <option value="IA">Iowa</option>
+                                {% endif %}
+                                {% if guardian2.state == 'KS' %}
+                                    <option selected value="KS">Kansas</option>
+                                {% else %}
+                                    <option value="KS">Kansas</option>
+                                {% endif %}
+                                {% if guardian2.state == 'KY' %}
+                                    <option selected value="KY">Kentucky</option>
+                                {% else %}
+                                    <option value="KY">Kentucky</option>
+                                {% endif %}
+                                {% if guardian2.state == 'LA' %}
+                                    <option selected value="LA">Louisiana</option>
+                                {% else %}
+                                    <option value="LA">Louisiana</option>
+                                {% endif %}
+                                {% if guardian2.state == 'ME' %}
+                                    <option selected value="ME">Maine</option>
+                                {% else %}
+                                    <option value="ME">Maine</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MD' %}
+                                    <option selected value="MD">Maryland</option>
+                                {% else %}
+                                    <option value="MD">Maryland</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MA' %}
+                                    <option selected value="MA">Massachusetts</option>
+                                {% else %}
+                                    <option value="MA">Massachusetts</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MI' %}
+                                    <option selected value="MI">Michigan</option>
+                                {% else %}
+                                    <option value="MI">Michigan</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MN' %}
+                                    <option selected value="MN">Minnesota</option>
+                                {% else %}
+                                    <option value="MN">Minnesota</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MS' %}
+                                    <option selected value="MS">Mississippi</option>
+                                {% else %}
+                                    <option value="MS">Mississippi</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MO' %}
+                                    <option selected value="MO">Missouri</option>
+                                {% else %}
+                                    <option value="MO">Missouri</option>
+                                {% endif %}
+                                {% if guardian2.state == 'MT' %}
+                                    <option selected value="MT">Montana</option>
+                                {% else %}
+                                    <option value="MT">Montana</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NE' %}
+                                    <option selected value="NE">Nebraska</option>
+                                {% else %}
+                                    <option value="NE">Nebraska</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NV' %}
+                                    <option selected value="NV">Nevada</option>
+                                {% else %}
+                                    <option value="NV">Nevada</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NH' %}
+                                    <option selected value="NH">New Hampshire</option>
+                                {% else %}
+                                    <option value="NH">New Hampshire</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NJ' %}
+                                    <option selected value="NJ">New Jersey</option>
+                                {% else %}
+                                    <option value="NJ">New Jersey</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NM' %}
+                                    <option selected value="NM">New Mexico</option>
+                                {% else %}
+                                    <option value="NM">New Mexico</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NY' %}
+                                    <option selected value="NY">New York</option>
+                                {% else %}
+                                    <option value="NY">New York</option>
+                                {% endif %}
+                                {% if guardian2.state == 'NC' %}
+                                    <option selected value="NC">North Carolina</option>
+                                {% else %}
+                                    <option value="NC">North Carolina</option>
+                                {% endif %}
+                                {% if guardian2.state == 'ND' %}
+                                    <option selected value="ND">North Dakota</option>
+                                {% else %}
+                                    <option value="ND">North Dakota</option>
+                                {% endif %}
+                                {% if guardian2.state == 'OH' %}
+                                    <option selected value="OH">Ohio</option>
+                                {% else %}
+                                    <option value="OH">Ohio</option>
+                                {% endif %}
+                                {% if guardian2.state == 'OK' %}
+                                    <option selected value="OK">Oklahoma</option>
+                                {% else %}
+                                    <option value="OK">Oklahoma</option>
+                                {% endif %}
+                                {% if guardian2.state == 'OR' %}
+                                    <option selected value="OR">Oregon</option>
+                                {% else %}
+                                    <option value="OR">Oregon</option>
+                                {% endif %}
+                                {% if guardian2.state == 'PA' %}
+                                    <option selected value="PA">Pennsylvania</option>
+                                {% else %}
+                                    <option value="PA">Pennsylvania</option>
+                                {% endif %}
+                                {% if guardian2.state == 'RI' %}
+                                    <option selected value="RI">Rhode Island</option>
+                                {% else %}
+                                    <option value="RI">Rhode Island</option>
+                                {% endif %}
+                                {% if guardian2.state == 'SC' %}
+                                    <option selected value="SC">South Carolina</option>
+                                {% else %}
+                                    <option value="SC">South Carolina</option>
+                                {% endif %}
+                                {% if guardian2.state == 'SD' %}
+                                    <option selected value="SD">South Dakota</option>
+                                {% else %}
+                                    <option value="SD">South Dakota</option>
+                                {% endif %}
+                                {% if guardian2.state == 'TN' %}
+                                    <option selected value="TN">Tennessee</option>
+                                {% else %}
+                                    <option value="TN">Tennessee</option>
+                                {% endif %}
+                                {% if guardian2.state == 'TX' %}
+                                    <option selected value="TX">Texas</option>
+                                {% else %}
+                                    <option value="TX">Texas</option>
+                                {% endif %}
+                                {% if guardian2.state == 'UT' %}
+                                    <option selected value="UT">Utah</option>
+                                {% else %}
+                                    <option value="UT">Utah</option>
+                                {% endif %}
+                                {% if guardian2.state == 'VT' %}
+                                    <option selected value="VT">Vermont</option>
+                                {% else %}
+                                    <option value="VT">Vermont</option>
+                                {% endif %}
+                                {% if guardian2.state == 'VA' %}
+                                    <option selected value="VA">Virginia</option>
+                                {% else %}
+                                    <option value="VA">Virginia</option>
+                                {% endif %}
+                                {% if guardian2.state == 'WA' %}
+                                    <option selected value="WA">Washington</option>
+                                {% else %}
+                                    <option value="WA">Washington</option>
+                                {% endif %}
+                                {% if guardian2.state == 'WV' %}
+                                    <option selected value="WV">West Virginia</option>
+                                {% else %}
+                                    <option value="WV">West Virginia</option>
+                                {% endif %}
+                                {% if guardian2.state == 'WI' %}
+                                    <option selected value="WI">Wisconsin</option>
+                                {% else %}
+                                    <option value="WI">Wisconsin</option>
+                                {% endif %}
+                                {% if guardian2.state == 'WY' %}
+                                    <option selected value="WY">Wyoming</option>
+                                {% else %}
+                                    <option value="WY">Wyoming</option>
+                                {% endif %}
+                                </select>
+                            </div>
+
+                            <!-- guardian2_zip field -->
+                            <div class="form-group">
+                                {{ sform.guardian2_zip.label(class="form-control-label") }}
+                                {% if sform.guardian2_zip.errors %}
+                                    {{ sform.guardian2_zip(class="form-control form-control-lg is-invalid", value=guardian2.zip) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in sform.guardian2_zip.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ sform.guardian2_zip(class="form-control form-control-lg", value=guardian2.zip) }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ sform.submit(class="btn btn-success") }}
+                </div>
+            </form>
+
+        </div>
+    {% elif category == 'Staff' %}
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ staffForm.hidden_tag() }}
+                <fieldset class="form-group">
+
+                    <div class="content-section p-4">
+                        <!-- fName field -->
+                        <div class="form-group">
+                            {{ staffForm.fName.label(class="form-control-label") }}
+                            {% if staffForm.fName.errors %}
+                                {{ staffForm.fName(class="form-control form-control-lg is-invalid", value=staff.fName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in staffForm.fName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ staffForm.fName(class="form-control form-control-lg", value=staff.fName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- mName field -->
+                        <div class="form-group">
+                            {{ staffForm.mName.label(class="form-control-label") }}
+                            {% if staffForm.mName.errors %}
+                                {{ staffForm.mName(class="form-control form-control-lg is-invalid", value=staff.mName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in staffForm.mName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ staffForm.mName(class="form-control form-control-lg", value=staff.mName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- lName field -->
+                        <div class="form-group">
+                            {{ staffForm.lName.label(class="form-control-label") }}
+                            {% if staffForm.lName.errors %}
+                                {{ staffForm.lName(class="form-control form-control-lg is-invalid", value=staff.lName) }}
+                                <div class="invalid-feedback">
+                                    {% for error in staffForm.lName.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ staffForm.lName(class="form-control form-control-lg", value=staff.lName) }}
+                            {% endif %}
+                        </div>
+
+                        <!-- suffix field -->
+                        <div class="form-group">
+                            {{ staffForm.suffix.label(class="form-control-label") }}
+                            {% if staffForm.suffix.errors %}
+                                {{ staffForm.suffix(class="form-control form-control-lg is-invalid", value=staff.suffix) }}
+                                <div class="invalid-feedback">
+                                    {% for error in staffForm.suffix.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ staffForm.suffix(class="form-control form-control-lg", value=staff.suffix) }}
+                            {% endif %}
+                        </div>
+
+
+                        <div class="content-section p-4">
+                            <!-- street field -->
+                            <div class="form-group">
+                                {{ staffForm.street.label(class="form-control-label") }}
+                                {% if staffForm.street.errors %}
+                                    {{ staffForm.street(class="form-control form-control-lg is-invalid", value=staff.street) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in staffForm.street.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ staffForm.street(class="form-control form-control-lg", value=staff.street) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- city field -->
+                            <div class="form-group">
+                                {{ staffForm.city.label(class="form-control-label") }}
+                                {% if staffForm.city.errors %}
+                                    {{ staffForm.city(class="form-control form-control-lg is-invalid", value=staff.city) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in staffForm.city.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ staffForm.city(class="form-control form-control-lg", value=staff.city) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- state field -->
+                            <div class="form-group">
+                                {{ staffForm.state.label(class="form-control-label") }}
+                                <select class="form-control" id="state" name="state">
+                                    {% if staff.state =='AL' %}
+                                    <option selected value="AL">Alabama</option>
+                                {% else %}
+                                    <option value="AL">Alabama</option>
+                                {% endif %}
+                                {% if staff.state =='AK' %}
+                                    <option selected value="AK">Alaska</option>
+                                {% else %}
+                                    <option value="AK">Alaska</option>
+                                {% endif %}
+                                {% if staff.state == 'AZ' %}
+                                    <option selected value="AZ">Arizona</option>
+                                {% else %}
+                                    <option value="AZ">Arizona</option>
+                                {% endif %}
+                                {% if staff.state == 'AR' %}
+                                    <option selected value="AR">Arkansas</option>
+                                {% else %}
+                                    <option value="AR">Arkansas</option>
+                                {% endif %}
+                                {% if staff.state == 'CA' %}
+                                    <option selected value="CA">California</option>
+                                {% else %}
+                                    <option value="CA">California</option>
+                                {% endif %}
+                                {% if staff.state == 'CO' %}
+                                    <option selected value="CO">Colorado</option>
+                                {% else %}
+                                    <option value="CO">Colorado</option>
+                                {% endif %}
+                                {% if staff.state == 'CT' %}
+                                    <option selected value="CT">Connecticut</option>
+                                {% else %}
+                                    <option value="CT">Connecticut</option>
+                                {% endif %}
+                                {% if staff.state == 'DE' %}
+                                    <option selected value="DE">Delaware</option>
+                                {% else %}
+                                    <option value="DE">Delaware</option>
+                                {% endif %}
+                                {% if staff.state == 'FL' %}
+                                    <option selected value="FL">Florida</option>
+                                {% else %}
+                                    <option value="FL">Florida</option>
+                                {% endif %}
+                                {% if staff.state == 'GA' %}
+                                    <option selected value="GA">Georgia</option>
+                                {% else %}
+                                    <option value="GA">Georgia</option>
+                                {% endif %}
+                                {% if staff.state == 'HI' %}
+                                    <option selected value="HI">Hawaii</option>
+                                {% else %}
+                                    <option value="HI">Hawaii</option>
+                                {% endif %}
+                                {% if staff.state == 'ID' %}
+                                    <option selected value="ID">Idaho</option>
+                                {% else %}
+                                    <option value="ID">Idaho</option>
+                                {% endif %}
+                                {% if staff.state == 'IL' %}
+                                    <option selected value="IL">Illinois</option>
+                                {% else %}
+                                    <option value="IL">Illinois</option>
+                                {% endif %}
+                                {% if staff.state == 'IN' %}
+                                    <option selected value="IN">Indiana</option>
+                                {% else %}
+                                    <option value="IN">Indiana</option>
+                                {% endif %}
+                                {% if staff.state == 'IA' %}
+                                    <option selected value="IA">Iowa</option>
+                                {% else %}
+                                    <option value="IA">Iowa</option>
+                                {% endif %}
+                                {% if staff.state == 'KS' %}
+                                    <option selected value="KS">Kansas</option>
+                                {% else %}
+                                    <option value="KS">Kansas</option>
+                                {% endif %}
+                                {% if staff.state == 'KY' %}
+                                    <option selected value="KY">Kentucky</option>
+                                {% else %}
+                                    <option value="KY">Kentucky</option>
+                                {% endif %}
+                                {% if staff.state == 'LA' %}
+                                    <option selected value="LA">Louisiana</option>
+                                {% else %}
+                                    <option value="LA">Louisiana</option>
+                                {% endif %}
+                                {% if staff.state == 'ME' %}
+                                    <option selected value="ME">Maine</option>
+                                {% else %}
+                                    <option value="ME">Maine</option>
+                                {% endif %}
+                                {% if staff.state == 'MD' %}
+                                    <option selected value="MD">Maryland</option>
+                                {% else %}
+                                    <option value="MD">Maryland</option>
+                                {% endif %}
+                                {% if staff.state == 'MA' %}
+                                    <option selected value="MA">Massachusetts</option>
+                                {% else %}
+                                    <option value="MA">Massachusetts</option>
+                                {% endif %}
+                                {% if staff.state == 'MI' %}
+                                    <option selected value="MI">Michigan</option>
+                                {% else %}
+                                    <option value="MI">Michigan</option>
+                                {% endif %}
+                                {% if staff.state == 'MN' %}
+                                    <option selected value="MN">Minnesota</option>
+                                {% else %}
+                                    <option value="MN">Minnesota</option>
+                                {% endif %}
+                                {% if staff.state == 'MS' %}
+                                    <option selected value="MS">Mississippi</option>
+                                {% else %}
+                                    <option value="MS">Mississippi</option>
+                                {% endif %}
+                                {% if staff.state == 'MO' %}
+                                    <option selected value="MO">Missouri</option>
+                                {% else %}
+                                    <option value="MO">Missouri</option>
+                                {% endif %}
+                                {% if staff.state == 'MT' %}
+                                    <option selected value="MT">Montana</option>
+                                {% else %}
+                                    <option value="MT">Montana</option>
+                                {% endif %}
+                                {% if staff.state == 'NE' %}
+                                    <option selected value="NE">Nebraska</option>
+                                {% else %}
+                                    <option value="NE">Nebraska</option>
+                                {% endif %}
+                                {% if staff.state == 'NV' %}
+                                    <option selected value="NV">Nevada</option>
+                                {% else %}
+                                    <option value="NV">Nevada</option>
+                                {% endif %}
+                                {% if staff.state == 'NH' %}
+                                    <option selected value="NH">New Hampshire</option>
+                                {% else %}
+                                    <option value="NH">New Hampshire</option>
+                                {% endif %}
+                                {% if staff.state == 'NJ' %}
+                                    <option selected value="NJ">New Jersey</option>
+                                {% else %}
+                                    <option value="NJ">New Jersey</option>
+                                {% endif %}
+                                {% if staff.state == 'NM' %}
+                                    <option selected value="NM">New Mexico</option>
+                                {% else %}
+                                    <option value="NM">New Mexico</option>
+                                {% endif %}
+                                {% if staff.state == 'NY' %}
+                                    <option selected value="NY">New York</option>
+                                {% else %}
+                                    <option value="NY">New York</option>
+                                {% endif %}
+                                {% if staff.state == 'NC' %}
+                                    <option selected value="NC">North Carolina</option>
+                                {% else %}
+                                    <option value="NC">North Carolina</option>
+                                {% endif %}
+                                {% if staff.state == 'ND' %}
+                                    <option selected value="ND">North Dakota</option>
+                                {% else %}
+                                    <option value="ND">North Dakota</option>
+                                {% endif %}
+                                {% if staff.state == 'OH' %}
+                                    <option selected value="OH">Ohio</option>
+                                {% else %}
+                                    <option value="OH">Ohio</option>
+                                {% endif %}
+                                {% if staff.state == 'OK' %}
+                                    <option selected value="OK">Oklahoma</option>
+                                {% else %}
+                                    <option value="OK">Oklahoma</option>
+                                {% endif %}
+                                {% if staff.state == 'OR' %}
+                                    <option selected value="OR">Oregon</option>
+                                {% else %}
+                                    <option value="OR">Oregon</option>
+                                {% endif %}
+                                {% if staff.state == 'PA' %}
+                                    <option selected value="PA">Pennsylvania</option>
+                                {% else %}
+                                    <option value="PA">Pennsylvania</option>
+                                {% endif %}
+                                {% if staff.state == 'RI' %}
+                                    <option selected value="RI">Rhode Island</option>
+                                {% else %}
+                                    <option value="RI">Rhode Island</option>
+                                {% endif %}
+                                {% if staff.state == 'SC' %}
+                                    <option selected value="SC">South Carolina</option>
+                                {% else %}
+                                    <option value="SC">South Carolina</option>
+                                {% endif %}
+                                {% if staff.state == 'SD' %}
+                                    <option selected value="SD">South Dakota</option>
+                                {% else %}
+                                    <option value="SD">South Dakota</option>
+                                {% endif %}
+                                {% if staff.state == 'TN' %}
+                                    <option selected value="TN">Tennessee</option>
+                                {% else %}
+                                    <option value="TN">Tennessee</option>
+                                {% endif %}
+                                {% if staff.state == 'TX' %}
+                                    <option selected value="TX">Texas</option>
+                                {% else %}
+                                    <option value="TX">Texas</option>
+                                {% endif %}
+                                {% if staff.state == 'UT' %}
+                                    <option selected value="UT">Utah</option>
+                                {% else %}
+                                    <option value="UT">Utah</option>
+                                {% endif %}
+                                {% if staff.state == 'VT' %}
+                                    <option selected value="VT">Vermont</option>
+                                {% else %}
+                                    <option value="VT">Vermont</option>
+                                {% endif %}
+                                {% if staff.state == 'VA' %}
+                                    <option selected value="VA">Virginia</option>
+                                {% else %}
+                                    <option value="VA">Virginia</option>
+                                {% endif %}
+                                {% if staff.state == 'WA' %}
+                                    <option selected value="WA">Washington</option>
+                                {% else %}
+                                    <option value="WA">Washington</option>
+                                {% endif %}
+                                {% if staff.state == 'WV' %}
+                                    <option selected value="WV">West Virginia</option>
+                                {% else %}
+                                    <option value="WV">West Virginia</option>
+                                {% endif %}
+                                {% if staff.state == 'WI' %}
+                                    <option selected value="WI">Wisconsin</option>
+                                {% else %}
+                                    <option value="WI">Wisconsin</option>
+                                {% endif %}
+                                {% if staff.state == 'WY' %}
+                                    <option selected value="WY">Wyoming</option>
+                                {% else %}
+                                    <option value="WY">Wyoming</option>
+                                {% endif %}
+                                </select>
+                            </div>
+                            <!-- zip field -->
+                            <div class="form-group">
+                                {{ staffForm.zip.label(class="form-control-label") }}
+                                {% if staffForm.zip.errors %}
+                                    {{ staffForm.zip(class="form-control form-control-lg is-invalid", value=staff.zip) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in staffForm.zip.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ staffForm.zip(class="form-control form-control-lg", value=staff.zip) }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="content-section p-4">
+                            <!-- email field -->
+                            <div class="form-group">
+                                {{ staffForm.email.label(class="form-control-label") }}
+                                {% if staffForm.email.errors %}
+                                    {{ staffForm.email(class="form-control form-control-lg is-invalid", value=staff.email) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in staffForm.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ staffForm.email(class="form-control form-control-lg", value=staff.email) }}
+                                {% endif %}
+                            </div>
+
+                            <!-- phone field -->
+                            <div class="form-group">
+                                {{ staffForm.phone.label(class="form-control-label") }}
+                                {% if staffForm.phone.errors %}
+                                    {{ staffForm.phone(class="form-control form-control-lg is-invalid", value=staff.phome) }}
+                                    <div class="invalid-feedback">
+                                        {% for error in staffForm.phone.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ staffForm.phone(class="form-control form-control-lg", value=staff.phone) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ sform.submit(class="btn btn-success") }}
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+    </div>
+{% endblock content %}
