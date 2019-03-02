@@ -150,21 +150,14 @@ def create_account():
         cursor = conn.cursor()
 
         cursor.execute(
-            "INSERT INTO users (id, category, pword) VALUES('{0}', '{1}', '{2}')".format(user.id, user.category,
-                                                                                         user.pword))
-
-        if user.category == 'Student':
-            currentDate = date.today()
-
-            cursor.execute(
-                "INSERT INTO students (id, acceptedYear, acceptedBy, bill) VALUES('{0}', '{1}', '{2}', '{3}')".format(
-                    user.id, currentDate.year, current_user.id, 0))
+            "INSERT INTO users (email, fname, lname, role, pword) VALUES('{0}', '{1}', '{2}', '{3}', '{4}')".format(
+                user.email, user.fname, user.lname, user.role, user.pword))
 
         conn.commit()
         cursor.close()
         conn.close()
 
-        flash('{0} account created with User ID: {1} and Password: {2}'.format(user.category, user.id, password),
+        flash('{0} account created with Email: {1}'.format(user.role, user.id),
               'success')
         return redirect(url_for('home'))
 
@@ -183,11 +176,11 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT * FROM users WHERE id = '{0}'".format(form.user_id.data))
+            "SELECT * FROM users WHERE email = '{0}'".format(form.user_id.data))
         result = cursor.fetchone()
 
         if result:
-            user = User(result[0], result[1], result[2])
+            user = User(result[0], result[1], result[2], result[3], result[4])
 
         conn.commit()
         cursor.close()
@@ -198,7 +191,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('Login failed. Incorrect user id or password.', 'danger')
+            flash('Login failed. Incorrect email or password.', 'danger')
 
     return render_template('login.html', title='Login', form=form)
 

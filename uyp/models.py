@@ -30,13 +30,15 @@ def load_user(user_id):
 
 
 class User:
-    def __init__(self, id, category, pword):
-        self.id = id
-        self.category = category
+    def __init__(self, email, fname, lname, role, pword):
+        self.email = email
+        self.fname = fname
+        self.lname = lname
+        self.role = role
         self.pword = pword
 
     def __repr__(self):
-        return "User( ID={0}, Category={1} )".format(self.id, self.category)
+        return "User( email={0}, fname={1}, lname={2}, role={3} )".format(self.email, self.fname, self.lname, self.role)
 
     def is_active(self):
         return True
@@ -49,7 +51,7 @@ class User:
         return True
 
     def get_id(self):
-        return self.id
+        return self.email
 
 
 class Class:
