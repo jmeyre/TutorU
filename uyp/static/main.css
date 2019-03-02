@@ -8,6 +8,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
+.bg-tutoru-orange {
+  background-color: #329ebc;
+}
+
 .bg-baylor-green-std {
   background-color: #003015;
 }
@@ -26,6 +30,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .bottom-gold-bar {
   border-bottom: 4px solid #fecb00;
+}
+
+.bottom-black-bar {
+  border-bottom: 4px solid #000000;
 }
 
 .uyp-link {

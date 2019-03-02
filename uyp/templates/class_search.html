@@ -16,7 +16,7 @@
 
     {% if current_user.category == 'Staff' %}
         <div class="row">
-            <a href={{ url_for('add_class') }}><button type="button" class="ml-2 mt-2 mb-2 btn text-white bg-baylor-green-std">Add a new class</button></a>
+            <a href={{ url_for('add_class') }}><button type="button" class="ml-2 mt-2 mb-2 btn text-white bg-tutoru-orange">Add a new class</button></a>
         </div>
     {% endif %}
 
@@ -29,7 +29,7 @@
         {% for (title, lvl, maxCap, curSize, instructorID, room, timeSlotID, sessionID, classID, price, iFname, iLname) in classes %}
             <div class="card">
                 <div class="card-title">
-                    <h5 class="card-header text-center text-white bg-baylor-green-std">{{ title }}</h5>
+                    <h5 class="card-header text-center text-white bg-tutoru-orange">{{ title }}</h5>
                     <p class="card-text ml-2 mt-2"><b>Session: </b>{{ sessionID }}</p>
                     <p class="card-text ml-2"><b>Time: </b>{{ timeSlotID }}</p>
                     <p class="card-text ml-2"><b>Instructor: </b>{{ iFname }} {{ iLname }}</p>
@@ -37,19 +37,19 @@
                     <p class="card-text ml-2"><b>Price: </b>${{ price }}</p>
                     <p class="card-text ml-2"><b>Room: </b>{{ room }}</p>
                     {% if current_user.category == 'Student' %}
-                        <button type="button" class="ml-2 mt-2 btn text-white bg-baylor-green-std">More</button>
-                        <a href="{{ url_for('register_class', class_id=classID) }}"><button type="button" class="ml-2 mt-2 btn text-white bg-baylor-green-std">Register</button></a>
+                        <button type="button" class="ml-2 mt-2 btn text-white bg-tutoru-orange">More</button>
+                        <a href="{{ url_for('register_class', class_id=classID) }}"><button type="button" class="ml-2 mt-2 btn text-white bg-tutoru-orange">Register</button></a>
                     {% endif %}
                     {% if current_user.category == 'Staff' %}
                         <p class="card-text ml-2"><b>Registered: </b>{{ curSize }}/{{ maxCap }}</p>
                         <a href="{{ url_for('roster', class_id=classID) }}">
-                            <button type="button" class="ml-2 mt-2 btn text-white bg-baylor-green-std">Roster</button>
+                            <button type="button" class="ml-2 mt-2 btn text-white bg-tutoru-orange">Roster</button>
                         </a>
                         <a href="{{ url_for('edit_class', class_id=classID) }}">
-                            <button type="button" class="ml-2 mt-2 btn text-white bg-baylor-green-std">Edit</button>
+                            <button type="button" class="ml-2 mt-2 btn text-white bg-tutoru-orange">Edit</button>
                         </a>
                         <a href="{{ url_for('delete_class', class_id=classID) }}">
-                            <button type="button" class="ml-2 mt-2 btn text-white bg-baylor-green-std">Delete</button>
+                            <button type="button" class="ml-2 mt-2 btn text-white bg-tutoru-orange">Delete</button>
                         </a>
                     {% endif %}
 

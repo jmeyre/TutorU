@@ -53,24 +53,21 @@ def home():
 
         cursor.execute("SELECT * FROM users WHERE email = '{0}'".format(current_user.email))
 
-        sta = cursor.fetchone()
+        result = cursor.fetchone()
 
-        if not sta:
-            return redirect(url_for('staff_activate'))
+        user = User(result[0], result[1], result[2], result[3], result[4])
 
-        staff = Staff(sta[0], sta[1], sta[2], sta[3], sta[4], sta[5], sta[6], sta[7], sta[8], sta[9], sta[10])
-
-        cursor.execute("SELECT c.*, i.fName, i.lName "
-                       "FROM  class c, staff i "
-                       "WHERE c.instructorID = i.id AND c.instructorID = '{0}'".format(current_user.id))
-
-        classes = cursor.fetchall()
+        # cursor.execute("SELECT c.*, i.fName, i.lName "
+        #                "FROM  class c, staff i "
+        #                "WHERE c.instructorID = i.id AND c.instructorID = '{0}'".format(current_user.id))
+        #
+        # classes = cursor.fetchall()
 
         conn.commit()
         cursor.close()
         conn.close()
 
-    return render_template('home.html', user=student, staff=staff, classes=classes)
+    return render_template('home.html', student=student, staff=staff,) # classes=classes)
 
 
 @app.route('/class_search')
