@@ -163,7 +163,7 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT * FROM users WHERE email = '{0}'".format(form.user_id.data))
+            "SELECT * FROM users WHERE email = '{0}'".format(form.email.data))
         result = cursor.fetchone()
 
         if result:

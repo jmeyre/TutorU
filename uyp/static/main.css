@@ -9,7 +9,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bg-tutoru-orange {
-  background-color: #329ebc;
+  background-color: #000064;
 }
 
 .bg-baylor-green-std {
@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bottom-gold-bar {
-  border-bottom: 4px solid #fecb00;
+  border-bottom: 4px solid #f5941e;
 }
 
 .bottom-black-bar {
@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .uyp-link {
-  border-left: 2px solid #fecb00;
+  border-left: 2px solid #f5941e;
   font-size: 24px;
   font-family: Cambria, Serif;
   padding-left: 12px
