@@ -5,15 +5,16 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional, V
 from datetime import datetime
 
 
-class CreateAccountForm(FlaskForm):
+class RegisterForm(FlaskForm):
     # user_id = IntegerField('User ID', validators=[DataRequired()])
-    category = RadioField('Account Category', choices=[('Student', 'Student'), ('Staff', 'Staff')],
+    category = RadioField('Account Category', choices=[('Tutor', 'Tutor'), ('Student', 'Student')],
                           validators=[DataRequired()])
-    # password = PasswordField('Password', validators=[DataRequired()])
-    # confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    # fname = StringField('First Name', validators=[DataRequired()])
-    # lname = StringField('Last Name', validators=[DataRequired()])
-    submit = SubmitField('Create Account')
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    fname = StringField('First Name', validators=[DataRequired()])
+    lname = StringField('Last Name', validators=[DataRequired()])
+    submit = SubmitField('Register')
 
 
 class LoginForm(FlaskForm):

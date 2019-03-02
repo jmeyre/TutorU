@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from uyp import app, config, bcrypt
-from uyp.forms import LoginForm, CreateAccountForm, ProfileForm, AddClassForm, StudentInfo, CreateSessionForm, \
+from uyp.forms import LoginForm, RegisterForm, ProfileForm, AddClassForm, StudentInfo, CreateSessionForm, \
     StaffForm, SiblingForm
 from uyp.models import User, Student, Class, Staff, Disability, HealthCondition, Guardian, School
 from mysql import connector

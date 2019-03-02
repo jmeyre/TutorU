@@ -11,7 +11,7 @@ config = {
     'user': 'admin',
     'password': 'admin',
     'host': 'localhost',
-    'database': 'ufyp',
+    'database': 'tutoru',
     'raise_on_warnings': True
 }
 
