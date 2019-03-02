@@ -128,8 +128,8 @@ def class_search():
     return render_template('class_search.html', title='Class Search', classes=classes)
 
 
-@app.route('/create_account', methods=['GET', 'POST'])
-def create_account():
+@app.route('/register', methods=['GET', 'POST'])
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         id_chars = "0123456789"
@@ -161,7 +161,7 @@ def create_account():
               'success')
         return redirect(url_for('home'))
 
-    return render_template('create_account.html', title='Create Account', form=form)
+    return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
