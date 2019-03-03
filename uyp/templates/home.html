@@ -8,6 +8,7 @@
     </nav>
 
     <div class="row">
+        <img src={{ url_for('static', filename='TutorU.png') }} height="160" width="260"/>
         <h3 class="col-md-12 text-center">Welcome to TutorU</h3>
     </div>
 
@@ -25,21 +26,32 @@
             </div>
             <div class="col-md-8 card p-2">
                 <h3 class="card-header bg-tutoru-orange text-white text-center">Upcoming Sessions</h3>
+                <div class="text-center">
+                    <a class="btn btn-outline-secondary m-2 col-md-4" href="{{ url_for('register') }}">Find
+                        {% if current_user.role == 'Tutor' %}
+                            Students
+                        {% elif current_user.role == 'Student' %}
+                            a Tutor
+                        {% endif %}
+                    </a>
+                </div>
+
                 <div class="card-columns p-2">
-                    {% if classes|length == 0 %}
-                        <h3 class="text-center">No Sessions Scheduled!</h3>
-                        <a class="btn btn-outline-secondary" href="{{ url_for('register') }}">Schedule a Session</a>
+                    {% if sessions|length == 0 %}
+                        <h3 class="text-center">No Sessions!</h3>
                     {% endif %}
 
-                    {% for (sessionID, tutorEmail, studentEmail, sessionType) in sessions %}
+                    {% for (sessionID, tutorEmail, studentEmail, sessionType, fname, lname) in sessions %}
                         <div class="card">
                             <div class="card-title">
                                 <h5 class="card-header text-center text-white bg-tutoru-orange">{{ sessionType }} Session</h5>
                                 {% if current_user.role == 'Student' %}
-                                    <p class="card-text ml-2"><b>Tutor: </b>{{ tutorEmail }}</p>
+                                    <p class="card-text ml-2"><b>Tutor: </b>{{ fname }} {{ lname }}</p>
+                                    <p class="card-text ml-2"><b>Email: </b>{{ tutorEmail }}</p>
                                 {% endif %}
                                 {% if current_user.role == 'Tutor' %}
-                                    <p class="card-text ml-2"><b>Student: </b>{{ studentEmail }}</p>
+                                    <p class="card-text ml-2"><b>Student: </b>{{ fname }} {{ lname }}</p>
+                                    <p class="card-text ml-2"><b>Email: </b>{{ studentEmail }}</p>
                                 {% endif %}
                             </div>
                         </div>

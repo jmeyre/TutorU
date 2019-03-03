@@ -14,29 +14,23 @@ from wtforms.validators import ValidationError
 @app.route('/home')
 @login_required
 def home():
-    student = None
-    staff = None
     sessions = None
+
+    conn = connector.connect(**config)
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM users WHERE email = '{0}'".format(current_user.email))
+
+    result = cursor.fetchone()
+
+    user = User(result[0], result[1], result[2], result[3], result[4])
+
     if current_user.role == 'Student':
 
-        conn = connector.connect(**config)
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT * FROM students WHERE id = '{0}'".format(current_user.email))
-
-        stu = cursor.fetchone()
-
-        if not stu[1]:
-            return redirect(url_for('student_activate'))
-
-        student = Student(stu[0], stu[1], stu[2], stu[3], stu[4], stu[5], stu[6], stu[7], stu[8], stu[9], stu[10],
-                          stu[11], stu[12], stu[13], stu[14], stu[15], stu[16], stu[17], stu[18], stu[19], stu[20],
-                          stu[21], stu[22], stu[23], stu[24], stu[25], stu[26])
-
-        cursor.execute("SELECT s.*, i.fName, i.lName "
-                       "FROM sessions s, staff i "
+        cursor.execute("SELECT s.*, i.fname, i.lname "
+                       "FROM sessions s, users i "
                        "WHERE s.studentEmail = '{0}' "
-                       "AND s.tutorEmail = i.id ".format(current_user.email))
+                       "AND s.tutorEmail = i.email ".format(current_user.email))
 
         sessions = cursor.fetchall()
 
@@ -47,25 +41,15 @@ def home():
 
     elif current_user.role == 'Tutor':
 
-        conn = connector.connect(**config)
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT * FROM users WHERE email = '{0}'".format(current_user.email))
-
-        result = cursor.fetchone()
-
-        user = User(result[0], result[1], result[2], result[3], result[4])
-
         cursor.execute("SELECT s.*, i.fName, i.lName "
                        "FROM  sessions s, users i "
                        "WHERE s.studentEmail = i.email AND s.tutorEmail = '{0}'".format(current_user.email))
 
         sessions = cursor.fetchall()
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-
+    conn.commit()
+    cursor.close()
+    conn.close()
     return render_template('home.html', sessions=sessions)
 
 
@@ -126,6 +110,9 @@ def class_search():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
     form = RegisterForm()
     if form.validate_on_submit():
 
@@ -145,6 +132,7 @@ def register():
 
         flash('{0} account created with Email: {1}'.format(user.role, user.email),
               'success')
+
         return redirect(url_for('home'))
 
     return render_template('register.html', title='Register', form=form)
